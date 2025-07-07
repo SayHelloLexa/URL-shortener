@@ -7,10 +7,6 @@ import (
 	"github.com/gorilla/mux"
 )
 
-const (
-	domain = "localhost:8080"
-)
-
 func (s *Server) configureRoutes() {
 	s.router.Use(JsonHeaderMiddleware)
 
@@ -32,7 +28,7 @@ func (s *Server) shortenUrlHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 
-	fullShortUrl := "http://" + domain + "/" + shortUrl
+	fullShortUrl := "http://" + s.config.Domain + "/" + shortUrl
 
 	response := struct {
 		ShortUrl string `json:"short_url"`
